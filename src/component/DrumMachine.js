@@ -15,12 +15,7 @@ const DrumMachine = () => {
     { key: 'C', sound: 'Closed-HH', src: 'https://cdn.freecodecamp.org/testable-projects-fcc/audio/Cev_H2.mp3' },
   ];
 
-  const handleKeyDown = (event) => {
-    const drumPad = drumPads.find((pad) => pad.key === event.key.toUpperCase());
-    if (drumPad) {
-      playSound(drumPad.sound);
-    }
-  };
+  
 
   const playSound = (sound) => {
     setDisplay(sound);
@@ -30,11 +25,18 @@ const DrumMachine = () => {
   };
 
   useEffect(() => {
+    const handleKeyDown = (event) => {
+      const drumPad = drumPads.find((pad) => pad.key === event.key.toUpperCase());
+      if (drumPad) {
+        playSound(drumPad.sound);
+      }
+    };
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
+  
 
   return (
     <div id="drum-machine">
